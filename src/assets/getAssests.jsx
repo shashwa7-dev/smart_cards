@@ -23,6 +23,7 @@ import password from "./Images/password.svg";
 import checkOn from "./Images/checkOn.svg";
 import eye_open from "./Images/eye-open.svg";
 import eye_close from "./Images/eye-close.svg";
+import share_icon from "./Images/share_icon.svg";
 export {
   locIcon,
   mail2Icon,
@@ -49,4 +50,5 @@ export {
   checkOn,
   eye_close,
   eye_open,
+  share_icon,
 };

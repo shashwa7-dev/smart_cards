@@ -15,6 +15,7 @@ import BusinessCard from "./Pages/BusinessCard/BusinessCard";
 import ResetPwd from "./Pages/ResetPassword/ResetPwd";
 import Update from "./Pages/UpdateProfile/UpdateProfile";
 import PrivateRoute from "./Components/PrivateRoute";
+import QR_code from "./Pages/QR_code/QR_code";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/update-profile" element={<Update />} />
             <Route path="/create-card" element={<CreateCard />} />
             <Route path="/card" element={<YourCard />} />
+            <Route path="/share-profile" element={<QR_code />} />
             <Route path="/card/:id" element={<CardProfile />} />
             <Route path="/scan-card" element={<ScanCard />} />
             <Route path="/write-card" element={<WriteCard />} />

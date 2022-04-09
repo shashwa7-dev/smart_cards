@@ -1,5 +1,6 @@
 import styles from "./MainProfile.module.scss";
 import { useNavigate } from "react-router-dom";
+
 //FIREBASE @imports
 import { auth } from "../../firebase-config";
 import { signOut } from "firebase/auth";
@@ -103,7 +104,6 @@ export default function MainProfile() {
               return <UtilityCard data={util} key={idx} />;
             })}
           </div>
-
           <div className={styles.profile_share}>
             <div className={styles.pofile_btns}>
               <button

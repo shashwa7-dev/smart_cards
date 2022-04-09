@@ -3,7 +3,7 @@ import styles from "./YourCard.module.scss";
 import { AuthContext } from "../../Helper/Context";
 import Card from "../../Layouts/Layout";
 
-import { editIcon } from "../../assets/getAssests";
+import { barcode_icon, editIcon, share_icon } from "../../assets/getAssests";
 import ProfileCard from "../../Components/ProfileCard/ProfileCard";
 import { useNavigate } from "react-router-dom";
 
@@ -20,13 +20,22 @@ export default function YourCard() {
       <div className={styles.container}>
         <ProfileCard card={card} />
 
-        <button
-          className={styles.editCardBtn}
-          onClick={() => navigate("/create-card")}
-        >
-          <img src={editIcon} alt="savecard_icon" />
-          <span>Edit Card</span>
-        </button>
+        <div className={styles.btns}>
+          <button
+            className={styles.shareCardBtn}
+            onClick={() => navigate("/share-profile")}
+          >
+            <img src={share_icon} alt="savecard_icon" />
+            <span>Share</span>
+          </button>
+          <button
+            className={styles.editCardBtn}
+            onClick={() => navigate("/create-card")}
+          >
+            <img src={editIcon} alt="savecard_icon" />
+            <span>Edit Card</span>
+          </button>
+        </div>
       </div>
     </Card>
   );
