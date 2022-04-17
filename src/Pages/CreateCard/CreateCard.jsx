@@ -69,7 +69,7 @@ export default function CreateCard() {
       card?.fullname && setFullName(card?.fullname);
       card?.profession && setProfession(card?.profession);
       card?.email && setEmail(card?.email);
-      card?.contact && setContact(card?.contact);
+      card?.contact && setContact(card?.contact.replace("+91-", ""));
       card?.location && setLocation(card?.location);
       card?.adhaarID && setAdhaarID(card?.adhaarID);
       card?.socials &&
