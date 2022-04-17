@@ -9,6 +9,7 @@ import {
   whatsAppIcon,
   fbIcon,
   placeholder,
+  userIcon,
 } from "../../assets/getAssests";
 
 export default function ProfileCard({ card }) {
@@ -32,6 +33,17 @@ export default function ProfileCard({ card }) {
             <img src={mail2Icon} alt="email_icon" />
             <span>{card?.email}</span>
           </a>
+        </div>
+        <div className={styles.detail}>
+          <span>Adhaar ID</span>
+          <div className={styles.content}>
+            <img
+              src={userIcon}
+              style={{ filter: "invert(1)" }}
+              alt="user_icon"
+            />
+            <span>{card?.adhaarID}</span>
+          </div>
         </div>
         <div className={styles.detail}>
           <span>Phone Number</span>

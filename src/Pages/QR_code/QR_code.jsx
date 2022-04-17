@@ -14,7 +14,7 @@ export default function QR_code() {
           Scan this QR code
           <br /> to save my profile!
         </h1>
-        <div className="qr_code">
+              <div className={styles.qr_code}>
           <QRCode value={`https://fir-9-be.web.app/profile/${user.uid}`} />
         </div>
         <p>

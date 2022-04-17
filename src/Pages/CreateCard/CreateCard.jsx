@@ -7,6 +7,8 @@ import {
   imgIcon,
   whatsAppIcon,
   fbIcon,
+  user_icon,
+  userIcon,
 } from "../../assets/getAssests";
 
 import styles from "./CreateCard.module.scss";
@@ -25,6 +27,7 @@ export default function CreateCard() {
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [location, setLocation] = useState("");
+  const [adhaarID, setAdhaarID] = useState("");
   const [socials, setSocials] = useState({
     web: "",
     fb: "",
@@ -36,6 +39,25 @@ export default function CreateCard() {
   const { user, Create_or_Update_Card, card, fetchCard, loading } =
     useContext(AuthContext);
 
+  const handleAdhaarIP = (event) => {
+    const adhaarIP = event.target;
+    if (adhaarIP.value.length > 0) {
+      adhaarIP.value = adhaarIP.value.split("-").join(""); // Remove dash (-) if mistakenly entered.
+      adhaarIP.value = adhaarIP.value.replace(/[A-Za-z]/g, ""); //removes all alphas
+      adhaarIP.value = adhaarIP.value.replace(/[^0-9]/g, ""); //removes all special char
+
+      let finalVal = adhaarIP.value.match(/.{1,4}/g).join("-");
+      adhaarIP.value = finalVal;
+      setAdhaarID(finalVal);
+    }
+  };
+  const handleContactIP = (event) => {
+    const contactIP = event.target;
+    if (contactIP.value.length === 10) {
+      contactIP.value = contactIP.value.replace(/[A-Za-z]/g, ""); //removes all alphas
+      contactIP.value = contactIP.value.replace(/[^0-9]/g, ""); //removes all special char
+    }
+  };
   useLayoutEffect(() => {
     if (!user) navigate("/");
     fetchCard(user?.uid);
@@ -49,6 +71,7 @@ export default function CreateCard() {
       card?.email && setEmail(card?.email);
       card?.contact && setContact(card?.contact);
       card?.location && setLocation(card?.location);
+      card?.adhaarID && setAdhaarID(card?.adhaarID);
       card?.socials &&
         setSocials({
           web: card?.socials?.web,
@@ -74,18 +97,49 @@ export default function CreateCard() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    {
-      await Create_or_Update_Card(user, {
-        fullName,
-        profession,
-        email,
-        contact,
-        location,
-        whatsapp: socials?.whatsapp || contact,
-        fb: socials?.fb,
-        web: socials?.web,
-        file: profilePic,
-      });
+    if (adhaarID.length === 14 && contact.length === 10) {
+      {
+        let phone = "+91-" + contact;
+        await Create_or_Update_Card(user, {
+          fullName,
+          profession,
+          email,
+          phone,
+          location,
+          adhaarID,
+          whatsapp: socials?.whatsapp || phone,
+          fb: socials?.fb,
+          web: socials?.web,
+          file: profilePic,
+        });
+      }
+    } else {
+      if (adhaarID.length !== 14) {
+        toast.warning(`Adhaar ID must be 12 digit long!`, {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+
+      if (contact.length !== 10) {
+        console.log(contact);
+        toast.warning(`Contact must be 10 digit long!`, {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
     }
   };
   return (
@@ -132,6 +186,27 @@ export default function CreateCard() {
             </div>
           </label>
           <label>
+            Adhaar Card ID
+            <div className={styles.input_cntr}>
+              <img
+                src={userIcon}
+                style={{ filter: "invert(1)" }}
+                alt="user_icon"
+              />
+              <span>|</span>
+              <input
+                type="text"
+                minLength={14}
+                maxLength={14}
+                value={adhaarID}
+                placeholder={"1234-4567-56XX"}
+                onChange={(event) => setAdhaarID(event.target.value)}
+                onInput={(event) => handleAdhaarIP(event)}
+                required
+              />
+            </div>
+          </label>
+          <label>
             Phone Number
             <div className={styles.input_cntr}>
               <img src={phoneIcon} alt="contact_icon" />
@@ -140,7 +215,10 @@ export default function CreateCard() {
                 type="text"
                 placeholder="9694174XXX"
                 value={contact}
+                minLength={10}
+                maxLength={10}
                 onChange={(event) => setContact(event.target.value)}
+                onInput={(event) => handleContactIP(event)}
                 required
               />
             </div>

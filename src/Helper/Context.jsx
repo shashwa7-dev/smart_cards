@@ -257,7 +257,8 @@ const AuthProvider = ({ children }) => {
           fullname: data.fullName,
           profession: data.profession,
           email: data.email,
-          contact: data.contact,
+          adhaarID: data.adhaarID,
+          contact: data.phone,
           location: data.location,
           socials: { whatsapp: data.whatsapp, fb: data.fb, web: data.web },
           profilePic: downloadUrl,
@@ -270,7 +271,8 @@ const AuthProvider = ({ children }) => {
           fullname: data.fullName,
           profession: data.profession,
           email: data.email,
-          contact: data.contact,
+          adhaarID: data.adhaarID,
+          contact: data.phone,
           location: data.location,
           socials: { whatsapp: data.whatsapp, fb: data.fb, web: data.web },
         });
@@ -304,7 +306,7 @@ const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       if (profilePic) {
-        console.log('hi:',profilePic)
+        console.log("hi:", profilePic);
         //upload img to firestorage logic
         const imageRef = ref(storage, `images/${profilePic.name}`);
         const snapshot = await uploadBytes(imageRef, profilePic);
